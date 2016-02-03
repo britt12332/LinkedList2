@@ -1,8 +1,11 @@
 package com.example.brittany.linkedlist;
 
 
+import android.util.Log;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 
 public class Node
 {
@@ -15,6 +18,20 @@ public class Node
     {
         this.payload = payload;
         this.nextNode = null;
+
+    }
+
+    public void display(LinearLayout layout)
+    {
+        View v = ListCore.inflater.inflate(R.layout.node, null);
+        TextView tf = (TextView) v.findViewById(R.id.theValueTF);
+        tf.setText(this.payload);
+        layout.addView(v);
+
+        if(this.nextNode != null)
+        {
+            this.nextNode.display(layout);
+        }
     }
 
     public String getPayload()
