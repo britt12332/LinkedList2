@@ -1,16 +1,21 @@
 package com.example.brittany.linkedlist;
 
-
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity
 {
+    private Button addFrontButton;
+    private Button addEndButton;
+    private Button removeFrontButton;
+    private Button removeEndButton;
+    private EditText newValueEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -18,37 +23,72 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_main);
 
+        //give ourselves programmatic access to the buttons and edit text
+        this.addFrontButton = (Button)this.findViewById(R.id.addFrontButton);
+        this.addEndButton = (Button)this.findViewById(R.id.addEndButton);
+        this.removeFrontButton = (Button)this.findViewById(R.id.removeFrontButton);
+        this.removeEndButton = (Button)this.findViewById(R.id.removeEndButton);
+        this.newValueEditText = (EditText)this.findViewById(R.id.newValueET);
+
         ListCore.inflater = this.getLayoutInflater();
 
         LinearLayout svLL = (LinearLayout)this.findViewById(R.id.scrollViewLL);
         LinkedList ll = new LinkedList(svLL);
-        ll.addFront("1");
-        ll.addFront("2");
-        ll.addFront("3");
-        ll.addFront("4");
-        ll.display();
-        ll.removeFront();
-        ll.display();
-        ll.addEnd("7");
-        ll.addEnd("33");
-        ll.display();
-        ll.removeEnd();
-        ll.display();
+        //ll.addFront("1");
+        //ll.addFront("2");
+        //ll.addFront("3");
+        //ll.addFront("4");
+        //ll.display();
+        //ll.removeFront();
+        //ll.display();
+        //ll.addEnd("6");
+        //ll.addEnd("7");
+       // ll.addEnd("8");
+       // ll.display();
+       // ll.removeEnd();
 
+
+        System.out.println("**** " + ll.count);
+        System.out.println("**** " + ll.count());
         /*
         View v;
-        for(int i = 0; i < 10; i++)
-        {
+
             v = this.getLayoutInflater().inflate(R.layout.node, null);
             TextView tf = (TextView) v.findViewById(R.id.theValueTF);
             tf.setText("" + i);
             svLL.addView(v);
-        }
+
         */
     }
 
-    public void theButtonClicked(View sender)
+    public void aButtonClicked(View sender)
     {
-        //I want to change the text on my label
+        LinearLayout svLL = (LinearLayout)this.findViewById(R.id.scrollViewLL);
+        LinkedList ll = new LinkedList(svLL);
+
+        if(sender == this.addFrontButton)
+        {
+            ll.addFront(String.valueOf(this.newValueEditText.getText()));
+           ll.display();
+        }
+        else if(sender == this.addEndButton)
+        {
+            ll.addEnd(String.valueOf(this.newValueEditText.getText()));
+            ll.display();
+        }
+        else if(sender == this.removeFrontButton)
+        {
+            ll.removeFront();
+            ll.display();
+        }
+        else if(sender == this.removeEndButton)
+        {
+            ll.removeEnd();
+            ll.display();
+        }
+
+
+
     }
+
 }

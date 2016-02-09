@@ -1,6 +1,5 @@
 package com.example.brittany.linkedlist;
 
-
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -54,4 +53,3 @@ public class Node
         this.nextNode = nextNode;
     }
 }
-
