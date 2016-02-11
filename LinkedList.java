@@ -4,57 +4,68 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
-public class LinkedList
-{
+
+public class LinkedList {
     private Node head;
     private LinearLayout layout;
-    public int count;
-    public LinkedList(LinearLayout layout)
-    {
+
+
+    public LinkedList(LinearLayout layout) {
         this.head = null;
         this.layout = layout;
-        this.count = 0;
+
+
     }
 
-    public void display()
-    {
-        //this.layout.removeAllViews();
-        //display the list in a reasonable format
-        if(this.head == null)
-        {
+    public int indexOf(Node n) {
+
+        if (this.head != null) {
+
+            Node currNode = this.head;
+            do {
+                if (currNode == n)
+                {
+                    return ListCore.pos;
+                } else
+                {
+                    ListCore.pos++;
+                    currNode = currNode.getNextNode();
+                }
+            }
+            while (currNode != null);
+        }
+        return -1;
+    }
+
+    public void display() {
+        this.layout.removeAllViews();
+        if (this.head == null) {
             View v = ListCore.inflater.inflate(R.layout.node, null);
             TextView tf = (TextView) v.findViewById(R.id.theValueTF);
             tf.setText("Empty List");
             this.layout.addView(v);
-        }
-        else
-        {
+        } else {
+            //display the list in a reasonable format
             this.head.display(this.layout);
         }
-
-        View v = ListCore.inflater.inflate(R.layout.node,null);
+        View v = ListCore.inflater.inflate(R.layout.node, null);
         TextView tf = (TextView) v.findViewById(R.id.theValueTF);
         tf.setText("_____________");
         this.layout.addView(v);
-
     }
 
-    public Node getAtIndex(int i)
-    {
+    public Node getAtIndex(int i) {
         return null;
     }
 
     //inefficient, but accurate
-    public int count()
-    {
+    public int count() {
         int count = 0;
-        if(head != null)
-        {
+        if (head != null) {
             count++;
             //at least one node in the list
             Node currNode = head;
-            while(currNode.getNextNode() != null)
-            {
+            while (currNode.getNextNode() != null) {
                 currNode = currNode.getNextNode();
                 count++;
             }
@@ -62,13 +73,34 @@ public class LinkedList
         return count;
     }
 
+   public Node remove(Node myself)
+   {
+       {
+          Node prevNode = this.head;
+           int count = 1;
+           while(count< ListCore.pos -1)
+           {
+               prevNode = prevNode.getNextNode();
+               count++;
+           }
+           myself = prevNode.getNextNode();
+           prevNode.setNextNode(myself.getNextNode());
+           myself.setNextNode(null);
+           return myself;
+       }
+
+   }
+
+
+
     public void addFront(String value)
     {
         //this adds a new Node to the front of the list with payload == value
+
         Node n = new Node(value);
         n.setNextNode(this.head);
         this.head = n;
-        this.count++;
+
     }
 
     public Node removeFront()
@@ -76,12 +108,13 @@ public class LinkedList
         //this removes and returns the Node that is currently sitting at the
         //front of the list.  The new front of the list, should be the old
         //second node or null in the event it was a 1-list
+
         Node nodeToReturn = this.head;
         if(this.head != null)
         {
             this.head = this.head.getNextNode();
             nodeToReturn.setNextNode(null);
-            this.count--;
+
         }
 
         return nodeToReturn;
@@ -89,6 +122,7 @@ public class LinkedList
 
     public void addEnd(String value)
     {
+
         if(this.head == null)
         {
             this.addFront(value);
@@ -103,9 +137,11 @@ public class LinkedList
             }
             //currNode is currently pointing at the last node in the list
             currNode.setNextNode(n);
-            this.count++;
+
         }
     }
+
+
 
     public Node removeEnd()
     {
@@ -115,7 +151,7 @@ public class LinkedList
         }
         else
         {
-            this.count--;
+
             Node nodeToReturn = head;
             //deal with the 1-list special case
             if(head.getNextNode() == null)
