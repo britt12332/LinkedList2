@@ -1,4 +1,5 @@
 package com.example.brittany.linkedlist;
+
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,39 +21,31 @@ public class LinkedList
     {
         //this guy should add a new Node to the list with payload = value at the specified
         //index assuming that index is a legal position in the list.
-        if(index < 0 || index >= this.count)
-        {
-            System.err.println("Linked List index out of bounds: " + index);
-
-        }
-        else if(index == 0)
+        if(index == 0)
         {
             this.addFront(value);
         }
-        else if(index == this.count-1)
+        else if(index == this.count)
         {
-             this.addEnd(value);
+            this.addEnd(value);
         }
         else
         {
-
+            this.count++;
             Node n = new Node(value);
-            Node currNode = head;
-            Node prevNode = null;
+            Node nodeBefore = this.head;
+            Node nodeAt;
 
-
-            for(int i = 0; i < index; i++)
+            for(int i = 0; i < index-1; i++)
             {
-                prevNode = currNode;
-                currNode = currNode.getNextNode();
+                nodeBefore = nodeBefore.getNextNode();
             }
-            n.setNextNode(currNode);
-            prevNode.setNextNode(n);
-
+            nodeAt = nodeBefore.getNextNode();
+            n.setNextNode(nodeAt);
+            nodeBefore.setNextNode(n);
         }
-        this.count++;
-    }
 
+    }
 
     public Node removeAtIndex(int index)
     {
@@ -72,6 +65,7 @@ public class LinkedList
         }
         else
         {
+            this.count--;
             //we have work to do
             Node nodeBefore = head;
             Node nodeToRemove = null;
@@ -134,9 +128,23 @@ public class LinkedList
         this.layout.addView(v);
     }
 
-    public Node getAtIndex(int i)
+    public Node getAtIndex(int pos)
     {
-        return null;
+        if(pos <0 || pos >= this.count)
+        {
+            System.err.println("linked list index out of bounds");
+            return null;
+        }
+        else
+        {
+            Node nodeToReturn = this.head;
+            for(int i = 0; i < pos; i++)
+            {
+                nodeToReturn = nodeToReturn.getNextNode();
+            }
+            return nodeToReturn;
+        }
+
     }
 
     //inefficient, but accurate

@@ -1,4 +1,6 @@
 package com.example.brittany.linkedlist;
+
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,7 +10,6 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -57,6 +58,12 @@ public class MainActivity extends AppCompatActivity
             svLL.addView(v);
         }
         */
+    }
+
+    public void stackButtonClicked(View sender)
+    {
+        Intent i = new Intent(this, StackActivity.class);
+        this.startActivity(i);
     }
 
     public void aButtonClicked(View sender)

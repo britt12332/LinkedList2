@@ -1,5 +1,6 @@
 package com.example.brittany.linkedlist;
 
+
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -9,9 +10,6 @@ import android.widget.TextView;
 
 import java.util.List;
 
-/**
- * Created by awesomefat on 1/28/16.
- */
 public class Node
 {
     private String payload;
@@ -51,23 +49,28 @@ public class Node
 
                 PopupMenu popup = new PopupMenu(ListCore.mainActivity, v);
                 popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener()
+                {
                     @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        if (item.getTitle().equals("DELETE")) {
+                    public boolean onMenuItemClick(MenuItem item)
+                    {
+                        if (item.getTitle().equals("DELETE"))
+                        {
                             ListCore.ll.removeAtIndex(ListCore.ll.indexOf(myself));
                             ListCore.ll.display();
-                        } else if (item.getTitle().equals("ADD ABOVE"))
-                        {
-                            ListCore.ll.addAtIndex(ListCore.newValueEditText.getText().toString(), ListCore.ll.indexOf(myself));
-                            ListCore.ll.display();
-                        } else if (item.getTitle().equals("ADD BELOW"))
-                        {
-                            ListCore.ll.addAtIndex(ListCore.newValueEditText.getText().toString(), ListCore.ll.indexOf(myself)+1);
-                            ListCore.ll.display();
-
                         }
-
+                        else if (item.getTitle().equals("ADD ABOVE"))
+                        {
+                            int pos = ListCore.ll.indexOf(myself);
+                            ListCore.ll.addAtIndex(ListCore.newValueEditText.getText().toString(), pos);
+                            ListCore.ll.display();
+                        }
+                        else if (item.getTitle().equals("ADD BELOW"))
+                        {
+                            int pos = ListCore.ll.indexOf(myself);
+                            ListCore.ll.addAtIndex(ListCore.newValueEditText.getText().toString(), pos+1);
+                            ListCore.ll.display();
+                        }
                         return true;
                     }
                 });
