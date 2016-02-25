@@ -1,7 +1,9 @@
 package com.example.brittany.linkedlist;
 
 
+import android.app.Fragment;
 import android.widget.LinearLayout;
+
 
 public class Stack extends LinkedList
 {
@@ -9,14 +11,17 @@ public class Stack extends LinkedList
     {
         super(layout);
     }
+
     public Node peek()
     {
-        return this.getAtIndex(1);
+        return this.getAtIndex(0);
     }
+
     public Node pop()
     {
         return this.removeFront();
     }
+
     public void push(String value)
     {
         this.addFront(value);

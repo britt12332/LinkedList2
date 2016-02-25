@@ -1,73 +1,68 @@
 package com.example.brittany.linkedlist;
 
+
+import android.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-
-
 public class StackActivity extends AppCompatActivity
 {
-    private Button pushButton;
-    private Button popButton;
-    private Button peekButton;
-    private TextView peekText;
+    private LinearLayout tower1Click;
+    private LinearLayout tower2Click;
+    private LinearLayout tower3Click;
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stack);
+        this.tower1Click = (LinearLayout) this.findViewById(R.id.tower1);
+        this.tower2Click = (LinearLayout) this.findViewById(R.id.tower2);
+        this.tower3Click = (LinearLayout) this.findViewById(R.id.tower3);
 
-        this.pushButton = (Button)this.findViewById(R.id.pushButton);
-        this.popButton = (Button)this.findViewById(R.id.popButton);
-        this.peekButton = (Button)this.findViewById(R.id.peekButton);
-        this.peekText = (TextView)this.findViewById(R.id.peekText);
-        ListCore.newValueEditText = (EditText)this.findViewById(R.id.newValueET);
-
-        ListCore.inflater = this.getLayoutInflater();
-
-        LinearLayout svLL = (LinearLayout)this.findViewById(R.id.scrollViewLL);
-        ListCore.ll = new LinkedList(svLL);
-        ListCore.ll.addEnd("6");
-        ListCore.ll.addEnd("7");
-        ListCore.ll.addEnd("8");
-        ListCore.ll.display();
-
+        TOHCore.tower1 = new TowerFragment();
+        TOHCore.tower2 = new TowerFragment();
+        TOHCore.tower3 = new TowerFragment();
+        this.getSupportFragmentManager().beginTransaction().add(R.id.tower1, TOHCore.tower1).commit();
+        this.getSupportFragmentManager().beginTransaction().add(R.id.tower2, TOHCore.tower2).commit();
+        this.getSupportFragmentManager().beginTransaction().add(R.id.tower3, TOHCore.tower3).commit();
     }
-    public void stackButtonClicked(View sender)
+
+    @Override
+    protected void onStart()
     {
-        if(sender == this.pushButton)
-        {
-            System.out.println("**** push pressed");
-            ListCore.ll.addFront(ListCore.newValueEditText.getText().toString());
-            // ListCore.newValueEditText.getText());
+        super.onStart();
 
-        }
-        else if(sender == this.popButton)
-        {
-            System.out.println("**** pop pressed");
-            ListCore.ll.removeFront();
-
-        }
-        else if(sender == this.peekButton)
-        {
-            int convertToInt = Integer.parseInt(ListCore.newValueEditText.getText().toString());
-            System.out.println("**** peek pressed");
-            ListCore.ll.getAtIndex(convertToInt);
-            System.out.println(ListCore.ll.getAtIndex(convertToInt).getPayload());
-            //this.peekText.append("The number : " + ListCore.ll.getAtIndex(1).getPayload() + " is at position ");
-            this.peekText.setText("The number we peeked at is : " +ListCore.ll.getAtIndex(convertToInt).getPayload()+ " it is at position " + convertToInt );
-        }
-        ListCore.ll.display();
-
-
+        TOHCore.tower1.addDisk(4);
+        TOHCore.tower1.addDisk(7);
+        TOHCore.tower1.addDisk(10);
 
     }
+    public void llClicked (View sender)
+    {
+        if(sender == tower1Click )
+        {
+            System.out.println("***Tower 1 clicked");
+            //need to store the disk that is being moved.
+            //delete it
+            //then place somewhere else.
+            TOHCore.tower1.removeDisk();
 
+
+        }
+        else if(sender == tower2Click )
+        {
+            System.out.println("***Tower 2 clicked");
+            TOHCore.tower2.removeDisk();
+        }
+        else if(sender == tower3Click )
+        {
+            System.out.println("***Tower 3 clicked");
+            TOHCore.tower3.removeDisk();
+        }
+    }
 
 }

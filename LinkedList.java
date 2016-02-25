@@ -130,9 +130,9 @@ public class LinkedList
 
     public Node getAtIndex(int pos)
     {
-        if(pos <0 || pos >= this.count)
+        if(pos < 0 || pos >= this.count)
         {
-            System.err.println("linked list index out of bounds");
+            System.err.println("Linked List Index Out of Bounds");
             return null;
         }
         else
@@ -144,7 +144,6 @@ public class LinkedList
             }
             return nodeToReturn;
         }
-
     }
 
     //inefficient, but accurate
